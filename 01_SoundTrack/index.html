@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <title>SoundTrack</title>
+  </head>
+  <body>
+    <div class="track">
+      <div data-key="65" class="sound">
+        <img src="icon/forest.png" class="img" alt="forest" />
+        <span class="kbd">A</span>
+      </div>
+      <div data-key="83" class="sound">
+        <img src="icon/garden.png" class="img" alt="garden" />
+        <span class="kbd">S</span>
+      </div>
+      <div data-key="68" class="sound">
+        <img src="icon/lullaby.png" class="img" alt="lullaby" />
+        <span class="kbd">D</span>
+      </div>
+      <div data-key="70" class="sound">
+        <img src="icon/misty.png" class="img" alt="misty" />
+        <span class="kbd">F</span>
+      </div>
+
+      <div data-key="72" class="sound">
+        <img src="icon/park.png" class="img" alt="park" />
+        <span class="kbd">H</span>
+      </div>
+      <div data-key="74" class="sound">
+        <img src="icon/waterfall.png" class="img" alt="waterfall" />
+        <span class="kbd">J</span>
+      </div>
+      <div data-key="75" class="sound">
+        <img src="icon/wave.png" class="img" alt="wave" />
+        <span class="kbd">K</span>
+      </div>
+      <div data-key="76" class="sound">
+        <img src="icon/wind.png" class="img" alt="wind" />
+        <span class="kbd">L</span>
+      </div>
+
+      <div class="sounds">
+        <audio data-key="65" src="sound/forest.mp3"></audio>
+        <audio data-key="83" src="sound/garden.mp3"></audio>
+        <audio data-key="68" src="sound/lullaby.mp3"></audio>
+        <audio data-key="70" src="sound/misty.mp3"></audio>
+        <audio data-key="72" src="sound/park.mp3"></audio>
+        <audio data-key="74" src="sound/waterfall.mp3"></audio>
+        <audio data-key="75" src="sound/wave.mp3"></audio>
+        <audio data-key="76" src="sound/wind.mp3"></audio>
+      </div>
+    </div>
+
+    <script>
+      function removeTransition(e) {
+        if (e.propertyName !== 'transform') return;
+        e.target.classList.remove('playing');
+      }
+      function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const sound = document.querySelector(`div[data-key="${e.keyCode}"]`);
+        if (!audio) return;
+        sound.classList.add('playing');
+        audio.currentTime = 0;
+        audio.play();
+      }
+
+      const sounds = Array.from(document.querySelectorAll('.sound'));
+      sounds.forEach((key) =>
+        key.addEventListener('transitionend', removeTransition)
+      );
+
+      window.addEventListener('keydown', playSound);
+    </script>
+  </body>
+</html>
